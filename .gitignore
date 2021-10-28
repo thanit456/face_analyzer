@@ -1,0 +1,12 @@
+my_data/
+my_aligned_data/
+my_aligned_data_pjump_algo/
+openvino/
+gt/
+imgs/
+results/
+results_aligned/
+__pycache__/
+*/__pycache__/
+*/*/__pycache__
+samples/
