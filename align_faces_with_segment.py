@@ -159,6 +159,8 @@ if __name__ == '__main__':
 
     aspect_ratios = [] # h/w
     widths = [] 
+    heights = [] 
+    noses = [] 
     cropped_filenames = [] 
     cropped_imgs = [] 
     cropped_segments= [] 
@@ -311,6 +313,8 @@ if __name__ == '__main__':
                     processed_polygon = shapely.affinity.translate(processed_polygon, xoff=-new_bbox.left, yoff=-new_bbox.top)
                     rotated_segments[label].append(processed_polygon)
                 
+            noses.append(nose)
+
             cropped_filenames.append(imgname)
             cropped_imgs.append(rotated_img)
             cropped_segments.append(rotated_segments)
@@ -318,6 +322,7 @@ if __name__ == '__main__':
             h,w = rotated_img.shape[:2]
             aspect_ratios.append(h/w)
             widths.append(w)
+            heights.append(h)
 
             print('----')
             print(rotated_img.shape)
@@ -329,6 +334,18 @@ if __name__ == '__main__':
     med_ar = np.median(aspect_ratios)
     med_width = int(np.median(widths))
     med_height = int(med_ar * med_width)
+
+    all_dict = dict()
+    all_dict['cropped_filenames'] = cropped_filenames
+    all_dict['cropped_imgs'] = cropped_imgs 
+    all_dict['cropped_segments'] = cropped_segments
+    all_dict['aspect_ratios'] = aspect_ratios 
+    all_dict['widths'] = widths 
+    all_dict['heights'] = heights 
+    all_dict['noses'] = noses
+    import pickle 
+    with open(f'results/all_dict.pkl', 'wb') as f:
+        pickle.dump(all_dict, f)
 
     target_size = (med_width,med_height)
 
