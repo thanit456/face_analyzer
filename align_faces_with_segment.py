@@ -298,7 +298,7 @@ if __name__ == '__main__':
 
             # rotate image 
             new_bbox = get_bbox_after_aligned(new_bbox)
-            print(new_bbox)
+            print(f'new_bbox = {new_bbox}')
 
             rotated_img = drawBbox(rotated_img, new_bbox)
 
@@ -313,7 +313,7 @@ if __name__ == '__main__':
                     processed_polygon = shapely.affinity.translate(processed_polygon, xoff=-new_bbox.left, yoff=-new_bbox.top)
                     rotated_segments[label].append(processed_polygon)
                 
-            noses.append(nose)
+            noses.append([nose[0] - new_bbox.x, nose[1] - new_bbox.y])
 
             cropped_filenames.append(imgname)
             cropped_imgs.append(rotated_img)

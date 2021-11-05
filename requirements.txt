@@ -1,0 +1,7 @@
+plotly
+numpy 
+torch 
+opencv-python
+matplotlib
+shapely 
+Pillow
